@@ -3,62 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Calculator Hub | CGPA, Attendance, Percentage & More</title>
-<meta name="description" content="Free mobile-friendly student calculators: CGPA, percentage, attendance, simple interest, compound interest, age and unit conversion.">
+<title>Student Calculator Hub | CGPA, SGPA, Attendance & Scientific Calculator</title>
+<meta name="description" content="Free mobile-friendly student calculators: CGPA to percentage, SGPA converter, attendance tracker, scientific calculator, date difference, and finance tools.">
 <style>
 :root{--bg:#f5f7fb;--card:#fff;--text:#18202a;--muted:#667085;--accent:#315efb;--border:#e4e7ec}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-header{background:linear-gradient(135deg,#315efb,#6b4eff);color:#fff;padding:34px 18px 28px;text-align:center}
-header h1{margin:0 0 8px;font-size:30px}header p{margin:0;opacity:.9}
-.container{max-width:900px;margin:auto;padding:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+header{background:linear-gradient(135deg,#315efb,#6b4eff);color:#fff;padding:30px 18px 20px;text-align:center}
+header h1{margin:0 0 6px;font-size:28px}header p{margin:0 0 15px;opacity:.9}
+nav{display:flex;justify-content:center;gap:15px;margin-top:10px}
+nav a{color:#fff;text-decoration:none;font-size:14px;font-weight:500;opacity:.9;padding:4px 8px;border-radius:6px;transition:background .2s}
+nav a:hover{background:rgba(255,255,255,0.2);opacity:1}
+.container{max-width:960px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 5px 20px #1018280b}
 .card h2{font-size:18px;margin:0 0 5px}.card p{color:var(--muted);font-size:14px;margin:0 0 15px}
 label{display:block;font-size:13px;font-weight:600;margin:10px 0 5px}input,select{width:100%;padding:11px;border:1px solid var(--border);border-radius:10px;font-size:15px;background:#fff}
 button{width:100%;padding:11px;margin-top:12px;border:0;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;font-size:15px;cursor:pointer}
 button.secondary{background:#eef2ff;color:#315efb}
-.result{margin-top:12px;padding:11px;border-radius:10px;background:#f1f5ff;font-weight:700;min-height:20px}
-.small{font-size:12px;color:var(--muted)}footer{text-align:center;color:var(--muted);padding:30px 15px}
+.result{margin-top:12px;padding:11px;border-radius:10px;background:#f1f5ff;font-weight:700;min-height:20px;word-break:break-all}
+.small{font-size:12px;color:var(--muted);margin-top:8px}
+.sci-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.sci-grid button{margin-top:0;background:#eef2ff;color:#315efb;font-size:14px;padding:10px 4px}
+.sci-grid button.op{background:#315efb;color:#fff}
+footer{text-align:center;color:var(--muted);padding:30px 15px;font-size:14px}
 </style>
 </head>
 <body>
 <header>
 <h1>Student Calculator Hub</h1>
-<p>Free, simple calculators for college students</p>
+<p>Free, high-accuracy calculators for academic success</p>
+<nav>
+<a href="index.html">Calculators</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</nav>
 </header>
 <main class="container">
 <div class="grid">
 
+<!-- CGPA to Percentage -->
 <section class="card">
-<h2>CGPA → Percentage</h2><p>Enter your CGPA and conversion factor.</p>
+<h2>CGPA → Percentage</h2><p>Convert university CGPA to percentage score.</p>
 <label>CGPA</label><input id="cgpa" type="number" step="0.01" min="0" placeholder="e.g. 8.2">
 <label>Multiplier</label><input id="cgpaFactor" type="number" step="0.01" value="9.5">
 <button onclick="calcCGPA()">Calculate</button><div id="cgpaResult" class="result"></div>
-<div class="small">The correct CGPA conversion formula varies by university. Change the multiplier if your university specifies another formula.</div>
+<div class="small">Standard multiplier is 9.5, adjust per university guidelines.</div>
 </section>
 
+<!-- SGPA to CGPA Converter -->
 <section class="card">
-<h2>Percentage Calculator</h2><p>Find percentage from marks.</p>
+<h2>SGPA to CGPA Converter</h2><p>Average your semester SGPA scores.</p>
+<label>SGPA Semester 1</label><input id="sgpa1" type="number" step="0.01" placeholder="e.g. 8.0">
+<label>SGPA Semester 2</label><input id="sgpa2" type="number" step="0.01" placeholder="e.g. 8.5">
+<button onclick="calcSGPA()">Calculate CGPA</button><div id="sgpaResult" class="result"></div>
+<div class="small">Enter completed semester SGPAs to find cumulative average.</div>
+</section>
+
+<!-- Percentage Calculator -->
+<section class="card">
+<h2>Percentage Calculator</h2><p>Find percentage from scored marks.</p>
 <label>Marks obtained</label><input id="marks" type="number" placeholder="e.g. 420">
 <label>Total marks</label><input id="total" type="number" placeholder="e.g. 500">
 <button onclick="calcPercent()">Calculate</button><div id="percentResult" class="result"></div>
 </section>
 
+<!-- Attendance Calculator -->
 <section class="card">
-<h2>Attendance Calculator</h2><p>Check your current attendance.</p>
+<h2>Attendance Calculator</h2><p>Check your current attendance percentage.</p>
 <label>Classes attended</label><input id="attended" type="number" placeholder="e.g. 42">
 <label>Total classes</label><input id="classes" type="number" placeholder="e.g. 50">
 <button onclick="calcAttendance()">Calculate</button><div id="attendanceResult" class="result"></div>
 </section>
 
+<!-- Required Attendance -->
 <section class="card">
-<h2>Required Attendance</h2><p>Classes you must attend to reach a target percentage.</p>
+<h2>Required Attendance</h2><p>Classes needed to hit target percentage.</p>
 <label>Current attended</label><input id="ra" type="number" placeholder="e.g. 42">
 <label>Current total</label><input id="rt" type="number" placeholder="e.g. 50">
 <label>Target attendance %</label><input id="target" type="number" value="75">
 <button onclick="calcRequired()">Calculate</button><div id="requiredResult" class="result"></div>
 </section>
 
+<!-- Date Difference Calculator -->
+<section class="card">
+<h2>Date Difference</h2><p>Days remaining until exam or deadline.</p>
+<label>Start Date</label><input id="startDate" type="date">
+<label>End Date / Deadline</label><input id="endDate" type="date">
+<button onclick="calcDateDiff()">Calculate Days</button><div id="dateResult" class="result"></div>
+</section>
+
+<!-- Simple & Compound Interest -->
 <section class="card">
 <h2>Simple Interest</h2><p>Calculate interest and total amount.</p>
 <label>Principal</label><input id="siP" type="number" placeholder="e.g. 10000">
@@ -67,55 +101,63 @@ button.secondary{background:#eef2ff;color:#315efb}
 <button onclick="calcSI()">Calculate</button><div id="siResult" class="result"></div>
 </section>
 
+<!-- Age Calculator -->
 <section class="card">
-<h2>Compound Interest</h2><p>Annual compounding calculator.</p>
-<label>Principal</label><input id="ciP" type="number" placeholder="e.g. 10000">
-<label>Rate (% per year)</label><input id="ciR" type="number" step="0.01" placeholder="e.g. 6">
-<label>Time (years)</label><input id="ciT" type="number" step="0.01" placeholder="e.g. 2">
-<button onclick="calcCI()">Calculate</button><div id="ciResult" class="result"></div>
-</section>
-
-<section class="card">
-<h2>Age Calculator</h2><p>Calculate age from date of birth.</p>
+<h2>Age Calculator</h2><p>Calculate exact age from birth date.</p>
 <label>Date of birth</label><input id="dob" type="date">
 <button onclick="calcAge()">Calculate</button><div id="ageResult" class="result"></div>
 </section>
 
+<!-- Scientific Calculator Quick Widget -->
 <section class="card">
-<h2>Unit Converter</h2><p>Convert common length and weight units.</p>
-<label>Value</label><input id="unitVal" type="number" placeholder="e.g. 10">
-<label>Conversion</label>
-<select id="conversion">
-<option value="km-mi">Kilometres → Miles</option>
-<option value="mi-km">Miles → Kilometres</option>
-<option value="m-ft">Metres → Feet</option>
-<option value="ft-m">Feet → Metres</option>
-<option value="kg-lb">Kilograms → Pounds</option>
-<option value="lb-kg">Pounds → Kilograms</option>
-<option value="c-f">Celsius → Fahrenheit</option>
-<option value="f-c">Fahrenheit → Celsius</option>
-</select>
-<button onclick="convert()">Convert</button><div id="unitResult" class="result"></div>
+<h2>Scientific Calculator</h2><p>Quick math and trigonometric calculations.</p>
+<label>Expression</label><input id="sciInput" type="text" placeholder="e.g. sin(30) * 5 or 25^0.5">
+<button onclick="calcSci()">Evaluate</button><div id="sciResult" class="result"></div>
+<div class="sci-grid">
+<button onclick="appSci('sin(')">sin</button>
+<button onclick="appSci('cos(')">cos</button>
+<button onclick="appSci('tan(')">tan</button>
+<button onclick="appSci('sqrt(')">√</button>
+<button onclick="appSci('7')">7</button>
+<button onclick="appSci('8')">8</button>
+<button onclick="appSci('9')">9</button>
+<button class="op" onclick="appSci('/')">/</button>
+<button onclick="appSci('4')">4</button>
+<button onclick="appSci('5')">5</button>
+<button onclick="appSci('6')">6</button>
+<button class="op" onclick="appSci('*')">*</button>
+<button onclick="appSci('1')">1</button>
+<button onclick="appSci('2')">2</button>
+<button onclick="appSci('3')">3</button>
+<button class="op" onclick="appSci('-')">-</button>
+<button onclick="appSci('0')">0</button>
+<button onclick="appSci('.')">.</button>
+<button onclick="document.getElementById('sciInput').value=''">C</button>
+<button class="op" onclick="appSci('+')">+</button>
+</div>
 </section>
 
 </div>
 </main>
 <footer>
-Student Calculator Hub • Free to use • Built for students
+Student Calculator Hub • Free academic & utility tools for students worldwide
 </footer>
 
 <script>
 function n(id){return parseFloat(document.getElementById(id).value)}
 function out(id,msg){document.getElementById(id).textContent=msg}
 function valid(...x){return x.every(v=>Number.isFinite(v))}
+
 function calcCGPA(){let c=n('cgpa'),f=n('cgpaFactor'); if(!valid(c,f)||c<0||f<=0)return out('cgpaResult','Enter valid values.'); out('cgpaResult',`Estimated percentage: ${(c*f).toFixed(2)}%`)}
+function calcSGPA(){let s1=n('sgpa1'),s2=n('sgpa2'); let vals=[s1,s2].filter(v=>!isNaN(v)); if(vals.length===0)return out('sgpaResult','Enter at least one SGPA.'); let avg=vals.reduce((a,b)=>a+b,0)/vals.length; out('sgpaResult',`Estimated CGPA: ${avg.toFixed(2)}`)}
 function calcPercent(){let m=n('marks'),t=n('total');if(!valid(m,t)||t<=0)return out('percentResult','Enter valid marks.');out('percentResult',`Percentage: ${(m/t*100).toFixed(2)}%`)}
 function calcAttendance(){let a=n('attended'),t=n('classes');if(!valid(a,t)||t<=0)return out('attendanceResult','Enter valid class counts.');out('attendanceResult',`Attendance: ${(a/t*100).toFixed(2)}%`)}
-function calcRequired(){let a=n('ra'),t=n('rt'),p=n('target');if(!valid(a,t,p)||t<0||a<0||a>t||p<=0||p>=100)return out('requiredResult','Enter valid values.');let x=Math.ceil((p*t/100-a)/(1-p/100));out('requiredResult',x<=0?'You already meet the target.':`Attend the next ${x} class${x===1?'':'es'} consecutively to reach at least ${p}%.`)}
+function calcRequired(){let a=n('ra'),t=n('rt'),p=n('target');if(!valid(a,t,p)||t<0||a<0||a>t||p<=0||p>=100)return out('requiredResult','Enter valid values.');let x=Math.ceil((p*t/100-a)/(1-p/100));out('requiredResult',x<=0?'You already meet the target.':`Attend next ${x} class${x===1?'':'es'} consecutively to reach ${p}%.`)}
+function calcDateDiff(){let d1=new Date(document.getElementById('startDate').value), d2=new Date(document.getElementById('endDate').value); if(isNaN(d1)||isNaN(d2))return out('dateResult','Select both start and end dates.'); let diffTime=d2-d1; let diffDays=Math.ceil(diffTime/(1000*60*60*24)); out('dateResult',diffDays<0?`Deadline passed by ${Math.abs(diffDays)} days.`:`${diffDays} day(s) remaining.`)}
 function calcSI(){let p=n('siP'),r=n('siR'),t=n('siT');if(!valid(p,r,t)||p<0||r<0||t<0)return out('siResult','Enter valid values.');let i=p*r*t/100;out('siResult',`Interest: ${i.toFixed(2)} • Total: ${(p+i).toFixed(2)}`)}
-function calcCI(){let p=n('ciP'),r=n('ciR'),t=n('ciT');if(!valid(p,r,t)||p<0||r<0||t<0)return out('ciResult','Enter valid values.');let a=p*Math.pow(1+r/100,t);out('ciResult',`Interest: ${(a-p).toFixed(2)} • Total: ${a.toFixed(2)}`)}
 function calcAge(){let d=new Date(document.getElementById('dob').value);if(isNaN(d))return out('ageResult','Select your date of birth.');let now=new Date();if(d>now)return out('ageResult','Date of birth cannot be in the future.');let y=now.getFullYear()-d.getFullYear(),m=now.getMonth()-d.getMonth(),day=now.getDate()-d.getDate();if(day<0){m--;day+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}if(m<0){y--;m+=12}out('ageResult',`Age: ${y} years, ${m} months, ${day} days`)}
-function convert(){let v=n('unitVal'),c=document.getElementById('conversion').value;if(!valid(v))return out('unitResult','Enter a valid number.');let r=({ 'km-mi':v*.621371,'mi-km':v*1.609344,'m-ft':v*3.28084,'ft-m':v*.3048,'kg-lb':v*2.2046226218,'lb-kg':v*.45359237,'c-f':v*9/5+32,'f-c':(v-32)*5/9})[c];out('unitResult',`Result: ${r.toFixed(4)}`)}
+function appSci(val){let inp=document.getElementById('sciInput');inp.value+=val;}
+function calcSci(){let expr=document.getElementById('sciInput').value;try{let clean=expr.replace(/sin\(/g,'Math.sin(Math.PI/180*').replace(/cos\(/g,'Math.cos(Math.PI/180*').replace(/tan\(/g,'Math.tan(Math.PI/180*').replace(/sqrt\(/g,'Math.sqrt(');let res=eval(clean);out('sciResult',`Result: ${Number.isFinite(res)?res.toFixed(4):'Error'}`);}catch(e){out('sciResult','Invalid Expression');}}
 </script>
 </body>
 </html>
