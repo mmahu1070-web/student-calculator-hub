@@ -113,6 +113,19 @@ footer{text-align:center;color:var(--muted);padding:30px 15px;font-size:14px}
 <label>Date of birth</label><input id="dob" type="date">
 <button onclick="calcAge()">Calculate</button><div id="ageResult" class="result"></div>
 </section>
+<!-- Age in Days Calculator -->
+<section class="card">
+<h2>Age & Days Calculator</h2>
+<p>Find out your exact age in days, months, and years.</p>
+    
+<label for="birthdate">Date of Birth:</label>
+<input type="date" id="birthdate">
+    
+<button onclick="calculateAge()">Calculate Age</button>
+    
+<div id="ageResult" style="margin-top: 15px; font-weight: bold; color: var(--text);"></div>
+</section>
+
 
 <!-- Scientific Calculator Quick Widget -->
 <section class="card">
@@ -164,6 +177,48 @@ function calcSI(){let p=n('siP'),r=n('siR'),t=n('siT');if(!valid(p,r,t)||p<0||r<
 function calcAge(){let d=new Date(document.getElementById('dob').value);if(isNaN(d))return out('ageResult','Select your date of birth.');let now=new Date();if(d>now)return out('ageResult','Date of birth cannot be in the future.');let y=now.getFullYear()-d.getFullYear(),m=now.getMonth()-d.getMonth(),day=now.getDate()-d.getDate();if(day<0){m--;day+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}if(m<0){y--;m+=12}out('ageResult',`Age: ${y} years, ${m} months, ${day} days`)}
 function appSci(val){let inp=document.getElementById('sciInput');inp.value+=val;}
 function calcSci(){let expr=document.getElementById('sciInput').value;try{let clean=expr.replace(/sin\(/g,'Math.sin(Math.PI/180*').replace(/cos\(/g,'Math.cos(Math.PI/180*').replace(/tan\(/g,'Math.tan(Math.PI/180*').replace(/sqrt\(/g,'Math.sqrt(');let res=eval(clean);out('sciResult',`Result: ${Number.isFinite(res)?res.toFixed(4):'Error'}`);}catch(e){out('sciResult','Invalid Expression');}}
+function calculateAge() {
+const dobInput = document.getElementById('birthdate').value;
+const resultDiv = document.getElementById('ageResult');
+    
+    if (!dobInput) {
+        resultDiv.innerHTML = "Please select your date of birth.";
+        return;
+    }
+    
+const dob = new Date(dobInput);
+const today = new Date();
+    
+    if (dob > today) {
+        resultDiv.innerHTML = "Date of birth cannot be in the future!";
+        return;
+    }
+    
+// Calculate difference in milliseconds
+const diffTime = Math.abs(today - dob);
+const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+// Calculate years, months, days breakdown
+let years = today.getFullYear() - dob.getFullYear();
+let months = today.getMonth() - dob.getMonth();
+let days = today.getDate() - dob.getDate();
+    
+    if (days < 0) {
+        months--;
+        // Get days in previous month
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += prevMonth.getDate();
+    }
+    
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+    
+    resultDiv.innerHTML = `You are approximately <strong>${diffDays.toLocaleString()}</strong> days old!<br>` +
+                          `(${years} years, ${months} months, and ${days} days)`;
+}
+
 </script>
 </body>
 </html>
